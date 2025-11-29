@@ -1,0 +1,31 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itmk.web.fee_power.mapper.FeePowerMapper">
+
+    <!--分页查询-->
+    <select id="getList" resultType="com.itmk.web.fee_power.entity.FeePower">
+        select fp.*,
+               lu.login_name,
+               lu.phone,
+               hb.build_id,
+               hb.`name`,
+               hu.unit_id,
+               hu.unit_name,
+               hl.house_num
+            from fee_power fp
+            left join live_user lu on fp.user_id = lu.user_id
+            left join house_list hl on hl.house_id = fp.house_id
+            left join house_unit hu on hu.unit_id = hl.unit_id
+            left join house_building hb on hb.build_id = hu.build_id
+          <where>
+                <if test="userName != null and userName !=''">
+                    and lu.login_name like concat('%',#{userName},'%')
+                </if>
+                <if test="houseNum != null and houseNum !=''">
+                   and hl.house_num like concat('%',#{houseNum},'%')
+                </if>
+          </where>
+    </select>
+</mapper>

@@ -1,0 +1,30 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itmk.web.live_user.mapper.LiveUserMapper">
+    <!--分页查询-->
+    <select id="getList" resultType="com.itmk.web.live_user.entity.LiveUser">
+        select lu.*,hb.`name`,hu.unit_name, hl.house_num, hl.house_area,pl.park_name,hl.house_id,lp.live_status,pl.park_id,lh.use_type
+		from  live_user lu
+				left join live_house lh on lu.user_id = lh.user_id and lh.use_type = '0'
+				left join house_list hl on lh.house_id = hl.house_id
+				left join house_unit hu on hl.unit_id = hu.unit_id
+				left join house_building hb on hu.build_id = hb.build_id
+				left join live_park lp on lp.user_id = lu.user_id and lp.live_status = '0'
+				left join parking_list pl on pl.park_id = lp.park_id
+		<where>
+            <if test="loginName != null and loginName != ''">
+                and lu.login_name like concat('%',#{loginName},'%')
+            </if>
+            <if test="phone != null and phone != ''">
+                and lu.phone like concat('%',#{phone},'%')
+            </if>
+        </where>
+    </select>
+    <!--通过业主id查询业主信息-->
+    <select id="getUser" resultType="com.itmk.web.live_user.entity.LiveUser">
+        select * from live_user as lu, live_role lr
+            where lu.user_id = lr.user_id and lu.user_id =#{userId}
+    </select>
+</mapper>

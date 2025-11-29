@@ -1,0 +1,26 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itmk.web.house_list.mapper.HouseListMapper">
+
+    <select id="getList" resultType="com.itmk.web.house_list.entity.HouseList">
+        select  hb.`name`,hu.unit_name,hb.type,hl.* from house_list hl
+            left join house_unit hu on hu.unit_id = hl.unit_id
+            left join house_building hb on hb.build_id = hu.build_id
+        <where>
+            <if test="buildName != null and buildName !=''">
+                and hb.name like concat('%',#{buildName},'%')
+            </if>
+            <if test="unitName != null and unitName !=''">
+                and hu.unit_name like concat('%',#{unitName},'%')
+            </if>
+            <if test="houseNum != null and houseNum !=''">
+                and hl.house_num like concat('%',#{houseNum},'%')
+            </if>
+            <if test="status != null and status !=''">
+                and hl.status =#{status}
+            </if>
+        </where>
+    </select>
+</mapper>
