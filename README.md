@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ### 物业管理系统
 
 ##### 介绍
@@ -56,3 +57,6 @@ itmk-base-parent
 | Axios      0.18.1       | 前端HTTP框架          | https://github.com/axios/axios         | 
 | Js-cookie  2.2.0        | cookie管理工具        | https://github.com/js-cookie/js-cookie |
 | nprogress  0.2.0        | 进度条控件            | https://github.com/rstacruz/nprogress  |
+=======
+# wygl
+>>>>>>> dc1c71490e7b73ba4b96dc4c61736e0b8951b4a0
